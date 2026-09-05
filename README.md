@@ -3,7 +3,8 @@
 > Statut : bootstrap technique validé ; développement métier non commencé.
 
 Le Core SaaS 1A (authentification Sanctum, organisations, memberships et
-contexte tenant) est maintenant implémenté dans `apps/api`.
+contexte tenant) et le Core SaaS 1B (catalogue de plans et souscriptions) sont
+implémentés dans `apps/api`.
 
 ## Bootstrap validé
 

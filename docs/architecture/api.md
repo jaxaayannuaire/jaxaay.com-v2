@@ -870,6 +870,29 @@ Les routes `/api/v1/auth/*`, `/api/v1/organizations` et
 `/api/v1/organization/context` sont disponibles avec Sanctum. Le contexte est
 résolu par `X-Organization-Id` (ULID public) et contrôlé par membership.
 
+# Core SaaS 1B — Plans et souscriptions
+
+Le catalogue public expose uniquement les plans actifs :
+
+```text
+GET /api/v1/plans
+GET /api/v1/plans/{slug}
+```
+
+Les souscriptions utilisent le contexte tenant résolu par `X-Organization-Id` :
+
+```text
+GET  /api/v1/organization/subscription
+POST /api/v1/organization/subscription
+```
+
+Le payload de création contient le `plan` identifié par son slug et un cycle
+`monthly` ou `yearly`. La création est réservée aux rôles `owner` et `admin`,
+commence au statut `pending` et snapshot le prix et la devise du plan. Un
+membre peut consulter la souscription courante. Une seule souscription non
+terminale (`pending`, `trialing`, `active`, `grace`) est autorisée par
+organisation ; `cancelled` et `expired` sont historiques.
+
 # 36. OAuth
 
 ```text

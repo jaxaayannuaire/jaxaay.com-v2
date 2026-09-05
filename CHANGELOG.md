@@ -8,6 +8,8 @@ Format inspiré de **Keep a Changelog**.
 
 * Core SaaS 1A : authentification Sanctum, organisations, memberships et contexte tenant avec identifiants publics ULID.
 
+* Core SaaS 1B : catalogue global de plans et souscriptions tenant-aware avec cycles mensuel/annuel, snapshots tarifaires et statuts.
+
 * Bootstrap technique validé : scaffold Laravel 13 (`apps/api`) et scaffold Flutter Android/Web (`apps/mobile`).
 
 * Architecture SaaS basée sur Yessal Core.

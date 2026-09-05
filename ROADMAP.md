@@ -30,8 +30,8 @@
 - [x] Contexte tenant — Core SaaS 1A
 - [x] Authentification API minimale — Core SaaS 1A
 - rôles / permissions
-- plans
-- subscriptions
+- [x] plans — Core SaaS 1B
+- [x] subscriptions — Core SaaS 1B
 - modules
 - entitlements
 - quotas
