@@ -25,6 +25,10 @@
 
 - Users
 - Organizations
+- [x] Organizations — Core SaaS 1A
+- [x] Memberships — Core SaaS 1A
+- [x] Contexte tenant — Core SaaS 1A
+- [x] Authentification API minimale — Core SaaS 1A
 - rôles / permissions
 - plans
 - subscriptions

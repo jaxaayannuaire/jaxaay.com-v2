@@ -4,6 +4,10 @@
 **Statut : Conception — aucune migration à créer avant validation**
 **SGBD cible : PostgreSQL**
 
+Core SaaS 1A ajoute uniquement `organizations` et `organization_user`, avec un
+`public_id` ULID public et un identifiant interne bigint. Aucun modèle Annuaire
+ou marketplace n'est introduit.
+
 ---
 
 ## 1. Principes

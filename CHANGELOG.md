@@ -6,6 +6,8 @@ Format inspiré de **Keep a Changelog**.
 
 ### Added
 
+* Core SaaS 1A : authentification Sanctum, organisations, memberships et contexte tenant avec identifiants publics ULID.
+
 * Bootstrap technique validé : scaffold Laravel 13 (`apps/api`) et scaffold Flutter Android/Web (`apps/mobile`).
 
 * Architecture SaaS basée sur Yessal Core.

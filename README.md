@@ -2,6 +2,9 @@
 
 > Statut : bootstrap technique validé ; développement métier non commencé.
 
+Le Core SaaS 1A (authentification Sanctum, organisations, memberships et
+contexte tenant) est maintenant implémenté dans `apps/api`.
+
 ## Bootstrap validé
 
 Le backend Laravel 13 est initialisé dans `apps/api` et le scaffold Flutter

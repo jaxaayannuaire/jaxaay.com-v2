@@ -864,6 +864,12 @@ uniquement lorsque le fournisseur l’autorise.
 
 ---
 
+# Core SaaS 1A implémenté
+
+Les routes `/api/v1/auth/*`, `/api/v1/organizations` et
+`/api/v1/organization/context` sont disponibles avec Sanctum. Le contexte est
+résolu par `X-Organization-Id` (ULID public) et contrôlé par membership.
+
 # 36. OAuth
 
 ```text
