@@ -239,6 +239,13 @@ Prévue pour V2/V3 :
 - promotions
 - livraison
 
+# Bootstrap technique B0
+
+- [x] Dépôt et gouvernance GitHub
+- [x] Scaffold Laravel 13 dans `apps/api`
+- [x] Scaffold Flutter Android/Web dans `apps/mobile`
+- [x] Tests et build Web de référence validés
+
 # Principe de roadmap
 
 Une fonctionnalité passe successivement par :

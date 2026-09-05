@@ -6,6 +6,8 @@ Format inspiré de **Keep a Changelog**.
 
 ### Added
 
+* Bootstrap technique validé : scaffold Laravel 13 (`apps/api`) et scaffold Flutter Android/Web (`apps/mobile`).
+
 * Architecture SaaS basée sur Yessal Core.
 * Directory Engine configurable.
 * `PersonProfile` distinct de `User`.

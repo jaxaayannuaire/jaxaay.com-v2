@@ -1,5 +1,14 @@
 # Jaxaay Annuaire V2
 
+> Statut : bootstrap technique validé ; développement métier non commencé.
+
+## Bootstrap validé
+
+Le backend Laravel 13 est initialisé dans `apps/api` et le scaffold Flutter
+Android/Web dans `apps/mobile`. Les contrôles de base Laravel et Flutter
+passent. PostgreSQL reste la base cible ; aucun domaine métier ni composant de
+marketplace n'est encore implémenté.
+
 Plateforme SaaS d’annuaire professionnel, de profils, d’annonces et de contenus structurés développée par **Jaxaay Group**.
 
 > Statut : architecture et spécifications V1 en cours de consolidation.
