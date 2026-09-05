@@ -1,260 +1,446 @@
 # AGENTS.md — Jaxaay Annuaire V2
 
-**Version : 0.1**
-**Statut : Règles de gouvernance du développement**
+**Version : 0.2**  
+**Statut : Règles de gouvernance du dépôt**  
+**Projet : Jaxaay Annuaire V2**
 
-Ce fichier définit les règles applicables aux agents IA et contributeurs intervenant sur **Jaxaay Annuaire V2**.
+## 1. Objectif
 
----
+Ce document définit les règles que tout agent, développeur ou outil automatisé doit respecter avant de modifier le dépôt Jaxaay Annuaire V2.
 
-# 1. Principe général
+Le dépôt GitHub constitue la source de vérité.
 
-Le dépôt GitHub constitue la **source de vérité technique**.
+Une fonctionnalité discutée, spécifiée ou proposée n'est considérée comme implémentée que lorsqu'elle :
 
-Une information discutée dans ChatGPT n'est pas considérée comme implémentée tant qu'elle n'existe pas dans le dépôt et n'a pas été validée.
+1. existe réellement dans le dépôt ;
+2. respecte l'architecture validée ;
+3. possède les tests nécessaires ;
+4. a été vérifiée ;
+5. est documentée si nécessaire.
 
-Workflow :
+Cycle de référence :
 
 ```text
 Étude
-  ↓
-Décision
-  ↓
-Documentation
-  ↓
-Implémentation
-  ↓
-Tests
-  ↓
-Validation
-  ↓
-Changelog
+→ Décision
+→ Documentation
+→ Implémentation
+→ Tests
+→ Validation
+→ Changelog
 ```
 
 ---
 
-# 2. Rôles
+## 2. Langue du projet
 
-## ChatGPT — Tech Lead
+### Documentation et communication
 
-Responsabilités :
+Tout le contenu suivant doit être rédigé en **français** :
 
-* architecture ;
-* conception fonctionnelle ;
-* arbitrages techniques ;
-* préparation des spécifications ;
-* analyse des rapports Codex ;
-* définition des étapes de développement ;
-* maintien de la cohérence globale.
+- documentation ;
+- rapports Codex ;
+- descriptions de Pull Request ;
+- descriptions d'Issues ;
+- commentaires de revue ;
+- notes d'architecture ;
+- ADR ;
+- changelog ;
+- roadmap ;
+- messages de commit ;
+- résumés de modifications ;
+- rapports de tests.
 
-ChatGPT ne doit jamais considérer une modification comme réalisée uniquement parce qu'elle a été proposée.
+### Code
+
+Les éléments techniques restent en **anglais** lorsque cela correspond aux conventions de développement :
+
+- noms de classes ;
+- méthodes ;
+- variables ;
+- enums ;
+- tables ;
+- colonnes ;
+- endpoints ;
+- namespaces ;
+- noms de fichiers applicatifs ;
+- messages internes destinés aux développeurs lorsque pertinent.
+
+Exemples :
+
+```text
+PersonProfile
+OrganizationProfile
+DirectoryEntry
+ReferenceNumberService
+StorePersonProfileRequest
+```
+
+### Commits
+
+Les préfixes Conventional Commits restent en anglais pour compatibilité avec l'écosystème Git :
+
+```text
+feat
+fix
+docs
+test
+refactor
+chore
+perf
+build
+ci
+revert
+```
+
+Le périmètre et la description doivent être rédigés en français.
+
+Format :
+
+```text
+<type>(<périmètre>): <description en français>
+```
+
+Exemples :
+
+```text
+feat(profils): ajouter les affiliations professionnelles
+feat(recherche): ajouter les facettes géographiques
+fix(import): empêcher la création de références en doublon
+docs(api): documenter la visibilité des contacts privés
+test(tenant): couvrir l'isolation entre organisations
+refactor(annuaire): extraire le résolveur de champs
+chore(dépendances): mettre à jour les dépendances Laravel
+```
 
 ---
 
-## Codex — Développement
+## 3. Rôles
 
-Codex intervient directement sur le dépôt.
+### ChatGPT — Tech Lead
 
 Responsabilités :
 
-* création et modification du code ;
-* migrations ;
-* modèles ;
-* services ;
-* API ;
-* tests ;
-* refactoring ;
-* documentation technique liée à l'implémentation.
+- architecture globale ;
+- conception fonctionnelle ;
+- arbitrages techniques ;
+- spécifications ;
+- analyse des rapports Codex ;
+- cohérence entre documentation et implémentation ;
+- préparation des étapes de développement ;
+- validation des changements structurants.
 
-Avant toute modification importante, Codex doit consulter :
+ChatGPT ne doit pas déclarer une fonctionnalité implémentée uniquement parce qu'elle a été conçue.
+
+### Codex — Implémentation
+
+Responsabilités :
+
+- inspection du dépôt ;
+- développement ;
+- migrations ;
+- modèles ;
+- services ;
+- API ;
+- tests ;
+- refactoring ;
+- documentation liée aux changements réels ;
+- rapports de recette technique.
+
+Codex ne doit jamais inventer l'état du dépôt.
+
+### ChatGPT Work
+
+Responsabilités privilégiées :
+
+- documentation longue ;
+- audits ;
+- études techniques ;
+- plans de tests ;
+- procédures ;
+- QA documentaire ;
+- analyse de logs volumineux ;
+- préparation de spécifications.
+
+---
+
+## 4. Lecture obligatoire avant modification
+
+Avant toute modification significative, lire au minimum :
 
 ```text
 AGENTS.md
 README.md
 ROADMAP.md
+CHANGELOG.md
 docs/architecture/architecture.md
+docs/architecture/database.md
+docs/architecture/api.md
+docs/security/security-architecture.md
+docs/development/development-guide.md
 ```
 
-et les documents spécifiques au domaine concerné.
+Lire également :
+
+- le document fonctionnel du domaine concerné ;
+- les ADR applicables ;
+- les tests existants associés ;
+- les migrations existantes avant toute création de nouvelle migration.
 
 ---
 
-## ChatGPT Work — Documentation / analyse
+## 5. Principes d'architecture fondamentaux
 
-Responsabilités principales :
+### Core SaaS
 
-* analyse documentaire ;
-* études techniques ;
-* documentation longue ;
-* plans de tests ;
-* audits ;
-* comparaison architecture ↔ code ;
-* procédures ;
-* préparation de spécifications.
-
-Work ne doit pas inventer l'état du dépôt.
-
----
-
-# 3. Langue
-
-La documentation du projet est rédigée principalement en **français**.
-
-Le code conserve les conventions techniques usuelles en anglais :
-
-```text
-Models
-Services
-Controllers
-Methods
-Variables
-Database fields
-API routes
-Events
-Jobs
-Enums
-```
-
-Exemple :
-
-```php
-class PersonProfileService
-{
-    public function createProfile(): PersonProfile
-}
-```
-
----
-
-# 4. Architecture de référence
-
-Jaxaay utilise un Core SaaS inspiré de Yessal ERP :
+Architecture cible :
 
 ```text
 User
- ↓
-Organization
- ↓
-Subscription
- ↓
-Plan
- ↓
-Modules
- ↓
-Entitlements
- ↓
-Quotas
+→ Organization
+→ Subscription
+→ Plan
+→ Modules
+→ Entitlements
+→ Quotas
 ```
 
-Les fonctionnalités d'annuaire constituent des domaines métier construits au-dessus de ce Core.
+### Directory Engine
+
+Architecture conceptuelle :
+
+```text
+Directory
+→ ListingType
+→ Fields
+→ Fieldsets / Repeaters
+→ Taxonomies
+→ Relations
+→ Locations
+→ Search Schema
+→ Views
+→ Permissions / Entitlements
+```
+
+Toujours vérifier qu'un nouveau besoin peut être représenté par ce moteur générique avant de créer une table ou un domaine spécifique.
 
 ---
 
-# 5. Principe du Directory Engine
+## 6. Séparations conceptuelles obligatoires
 
-Ne pas créer un modèle spécifique pour chaque nouveau secteur lorsque le moteur générique peut le prendre en charge.
-
-Privilégier :
-
-```text
-DirectoryType
-ListingType
-FieldDefinition
-FieldValue
-Taxonomy
-Relationship
-ViewDefinition
-SearchSchema
-```
-
-avant de créer des tables ou composants métier spécialisés.
-
----
-
-# 6. Entités métier importantes
-
-Les concepts suivants doivent rester distincts :
-
-```text
-User
-PersonProfile
-Organization
-Listing
-Announcement
-Document
-Location
-```
-
-En particulier :
+Respecter impérativement :
 
 ```text
 User != PersonProfile
-Organization != Listing
+Organization != OrganizationProfile
 ```
 
-Une personne publique peut posséder une fiche sans avoir de compte Jaxaay.
+Un utilisateur est un compte d'accès.
+
+Un `PersonProfile` est une fiche publique ou semi-publique représentant une personne physique.
+
+Une `Organization` est un tenant SaaS.
+
+Un `OrganizationProfile` est une fiche publique d'entreprise, d'établissement, d'association, d'institution ou d'organisation.
 
 ---
 
-# 7. Location Core
+## 7. DirectoryEntry
 
-Il existe **un seul référentiel géographique** pour toute la plateforme.
+Les sous-annuaires partagent une couche publique commune :
 
-Ne jamais créer des tables de localités séparées par annuaire.
+```text
+DirectoryEntry
+├── PersonProfile
+├── OrganizationProfile
+├── Announcement
+└── Document
+```
 
-Hiérarchie cible :
+Cette couche centralise notamment :
+
+- référence métier ;
+- statut ;
+- visibilité ;
+- recherche ;
+- SEO ;
+- relations ;
+- modération ;
+- favoris ;
+- claims ;
+- vérification ;
+- sources ;
+- audit.
+
+---
+
+## 8. Location Core
+
+Un seul référentiel de localités doit être utilisé par tous les domaines.
+
+Architecture cible :
 
 ```text
 Country
-Region
-Department
-Commune
-District / Neighborhood
+→ Region
+→ Department
+→ Commune
+→ District / Neighborhood
 ```
 
-Les contenus métier doivent référencer ces entités.
+Interdictions :
+
+- créer un référentiel géographique indépendant par vertical ;
+- autoriser un utilisateur à créer librement une localité canonique ;
+- fusionner automatiquement des localités critiques sans validation.
+
+Les utilisateurs peuvent proposer une correction ou une nouvelle valeur.
 
 ---
 
-# 8. Taxonomies contrôlées
+## 9. Taxonomies contrôlées
 
-Les utilisateurs ne doivent pas créer librement :
+Les taxonomies structurantes ne sont pas créées librement par les clients.
 
-* catégories principales ;
-* professions de référence ;
-* types de contenus ;
-* localités ;
-* taxonomies structurantes.
+Exemples :
 
-Ils peuvent proposer de nouvelles valeurs.
+- professions ;
+- spécialités ;
+- catégories principales ;
+- types d'organisation ;
+- types de documents ;
+- localités structurantes.
 
 Workflow :
 
 ```text
 Suggestion
 → Review
-→ Validation
-→ Référentiel
+→ Approved / Merged / Rejected
 ```
 
-L'objectif est d'éviter :
-
-```text
-Ophtalmologue
-Ophtalmo
-Ophtalmologue médical
-Ophthalmologue
-```
-
-pour une même notion.
+Une IA peut suggérer, jamais valider seule une taxonomie structurante.
 
 ---
 
-# 9. Références métier
+## 10. Champs dynamiques, fieldsets et repeaters
 
-Les entités publiées doivent recevoir une référence stable.
+Le moteur doit prendre en charge :
 
-Format initial :
+- champs configurables ;
+- conditions d'affichage ;
+- fieldsets ;
+- repeaters ;
+- champs relationnels ;
+- visibilité par champ ;
+- filtres ;
+- tri ;
+- recherche.
+
+Ne pas remplacer toute la modélisation métier par un unique blob JSON.
+
+Les données utilisées pour :
+
+- recherche ;
+- filtres ;
+- tri ;
+- relations ;
+- analytics ;
+
+doivent rester structurées et requêtables.
+
+---
+
+## 11. PersonProfile
+
+Règles principales :
+
+- une personne peut être référencée sans compte Jaxaay ;
+- un profil sensible ne doit pas être auto-validé ;
+- `claimed` et `verified` sont deux états distincts ;
+- les coordonnées personnelles sont privées par défaut ;
+- les affiliations à des organisations sont explicites ;
+- les sources et preuves doivent être conservables.
+
+Les profils sensibles incluent notamment :
+
+- responsables politiques ;
+- élus ;
+- professions réglementées ;
+- médecins ;
+- avocats ;
+- scientifiques / universitaires selon contexte ;
+- responsables religieux ;
+- personnalités publiques ;
+- profils institutionnels sensibles.
+
+---
+
+## 12. Données personnelles
+
+Les données personnelles sont privées par défaut.
+
+Exemples :
+
+- téléphone ;
+- email ;
+- WhatsApp ;
+- adresse privée ;
+- documents d'identité ;
+- données KYC.
+
+Visibilités possibles :
+
+```text
+public
+authenticated
+organization
+owner_only
+private
+```
+
+Une donnée non autorisée ne doit jamais être envoyée dans une réponse API puis simplement masquée côté interface.
+
+---
+
+## 13. Relations inter-annuaires
+
+Les relations doivent être explicites et typées.
+
+Exemples :
+
+```text
+PersonProfile
+→ ProfessionalAffiliation
+→ OrganizationProfile
+```
+
+ou :
+
+```text
+Document
+→ RelatedTo
+→ PersonProfile
+```
+
+Une relation peut contenir :
+
+- type ;
+- rôle ;
+- date de début ;
+- date de fin ;
+- caractère actuel ;
+- priorité ;
+- source ;
+- statut de vérification.
+
+---
+
+## 14. Références métier
+
+Chaque fiche publiée peut recevoir une référence humaine stable.
+
+Format :
 
 ```text
 PREFIX + YYMM + sequence
@@ -268,197 +454,111 @@ AN2609-0001
 DOC2609-0001
 ```
 
-Une référence déjà attribuée ne doit jamais être recyclée.
+Règles :
+
+- unique ;
+- immuable ;
+- jamais recyclée ;
+- générée transactionnellement ;
+- distincte de l'ID interne ;
+- distincte du `public_id`.
 
 ---
 
-# 10. Données personnelles
+## 15. Claims et vérification
 
-Les coordonnées des `PersonProfile` sont privées par défaut.
-
-Les niveaux de visibilité doivent être gérés explicitement.
-
-Exemples :
+Principe :
 
 ```text
-private
-public
-authenticated
-organization
-owner_only
+claimed != verified
 ```
 
-Aucun endpoint ne doit exposer une donnée privée uniquement parce qu'elle existe en base.
+Un claim approuvé signifie qu'un compte ou une organisation est autorisé à gérer une fiche.
+
+Une vérification signifie que Jaxaay a validé une information selon un processus défini.
+
+Les opérations KYC et de vérification sensible sont auditées.
 
 ---
 
-# 11. Validation des profils
+## 16. Recherche
 
-Les profils sensibles ou institutionnels ne doivent jamais être publiés automatiquement.
+PostgreSQL reste la source de vérité.
 
-Exemples :
-
-* responsables politiques ;
-* médecins ;
-* professions réglementées ;
-* scientifiques ;
-* universitaires ;
-* religieux ;
-* personnalités publiques.
-
-Workflow attendu :
-
-```text
-draft
-→ pending_review
-→ published
-→ verified
-```
-
-La propriété d'une fiche (`claimed`) et sa vérification (`verified`) sont deux notions distinctes.
-
----
-
-# 12. Relations inter-entités
-
-Les relations doivent être explicites.
-
-Exemples :
-
-```text
-PersonProfile
-  ↕
-ProfessionalAffiliation
-  ↕
-Organization
-```
-
-et :
-
-```text
-Document
- ↔ PersonProfile
-
-Document
- ↔ Organization
-```
-
-Éviter de dupliquer dans des champs texte des relations pouvant être modélisées proprement.
-
----
-
-# 13. Champs dynamiques
-
-Le moteur doit supporter :
-
-* champs standards ;
-* champs conditionnels ;
-* relations ;
-* fieldsets ;
-* repeaters.
-
-Les repeaters doivent être conçus comme des données structurées exploitables par la recherche et l'API.
-
-Ne pas stocker arbitrairement des structures métier importantes dans un blob JSON uniquement pour éviter leur modélisation.
-
----
-
-# 14. Recherche
-
-La recherche est une fonctionnalité critique.
-
-Elle doit permettre une recherche transversale :
-
-```text
-PersonProfiles
-Organizations
-Listings
-Announcements
-Documents
-Locations
-```
-
-Exemple :
-
-```text
-ophtalmologue kaolack
-```
-
-doit pouvoir classer :
-
-1. profils professionnels ;
-2. établissements ;
-3. organisations ;
-4. contenus associés.
-
-Le moteur doit rester compatible avec Laravel Scout et un moteur externe.
-
----
-
-# 15. Import / Export
-
-Toute fonctionnalité importante doit être compatible, lorsque pertinent, avec le module `DataExchange`.
-
-Les imports doivent prévoir :
-
-* validation ;
-* dry-run ;
-* rapport d'erreurs ;
-* traitement par lots ;
-* idempotence ;
-* détection des doublons ;
-* logs ;
-* rollback lorsque possible.
-
-Un import massif ne doit pas contourner les règles métier.
-
----
-
-# 16. API-first
-
-Toutes les fonctionnalités importantes doivent être utilisables via API lorsque cela est pertinent.
-
-Clients prévus :
-
-```text
-Web
-Flutter
-Telegram Bot
-External integrations
-Future agents
-```
-
-Le frontend ne doit pas devenir la seule couche capable d'exécuter une opération métier.
-
----
-
-# 17. Telegram Bot
-
-Le bot Telegram sera développé comme projet séparé.
+Le moteur de recherche externe est un index dérivé.
 
 Architecture :
 
 ```text
-Telegram Bot
-    ↓
-Jaxaay API
-    ↓
-Domain Services
-    ↓
-Database
+PostgreSQL
+→ Outbox
+→ Queue
+→ Laravel Scout
+→ Typesense / Meilisearch
 ```
 
-Le bot ne doit jamais accéder directement à PostgreSQL.
+Le choix Typesense vs Meilisearch doit être validé par benchmark et ADR.
+
+Ne jamais indexer :
+
+- contacts privés ;
+- KYC ;
+- notes internes ;
+- secrets ;
+- données non publiables.
 
 ---
 
-# 18. External Profiles
+## 17. DataExchange
 
-Les intégrations externes doivent utiliser des connecteurs indépendants.
+`DataExchange` est prioritaire en V1.
+
+Fonctions attendues :
+
+- import CSV ;
+- export CSV ;
+- médias ZIP ;
+- Blueprints JSON ;
+- mapping ;
+- dry-run ;
+- validation ;
+- normalisation ;
+- dédoublonnage ;
+- traitement par lot ;
+- journal des erreurs ;
+- reprise ;
+- rollback lorsque possible.
+
+Un import ne doit jamais contourner les services métier, Policies, taxonomies contrôlées ou Location Core.
+
+---
+
+## 18. Dédoublonnage et fusion
+
+L'IA ou des scripts peuvent proposer :
+
+- doublon probable ;
+- correction ;
+- rapprochement ;
+- fusion.
+
+Une fusion critique reste humaine.
+
+Les fusions doivent conserver :
+
+- audit ;
+- ancienne référence ;
+- relations ;
+- historique ;
+- traçabilité.
+
+---
+
+## 19. External Profiles
+
+Les fournisseurs externes sont isolés par connecteur :
 
 ```text
-ExternalProfileProvider
-
 GoogleBusinessConnector
 LinkedInConnector
 FacebookConnector
@@ -466,125 +566,169 @@ YouTubeConnector
 TikTokConnector
 ```
 
-Les limitations d'un fournisseur ne doivent pas contaminer le modèle métier interne.
+Règles :
+
+- OAuth lorsque disponible ;
+- scopes minimaux ;
+- tokens chiffrés ;
+- aucune dépendance métier forte aux limitations d'un fournisseur ;
+- erreurs et synchronisations auditées.
+
+Une panne externe ne doit jamais bloquer Jaxaay Core.
 
 ---
 
-# 19. IA et automatisation
+## 20. Telegram Bot
 
-Les agents IA peuvent :
+Le futur bot Telegram est un client de l'API.
 
-* proposer une catégorie ;
-* détecter un doublon probable ;
-* proposer une correction ;
-* proposer une relation ;
-* analyser des données importées ;
-* suggérer une migration.
-
-Ils ne doivent pas automatiquement :
-
-* valider une personnalité sensible ;
-* supprimer une fiche ;
-* fusionner des fiches importantes ;
-* modifier un référentiel structurant sans règle explicite.
-
-Les décisions sensibles restent humaines.
-
----
-
-# 20. Multi-tenant
-
-Toute ressource liée à une organisation doit être correctement isolée.
-
-Les contrôles doivent être réalisés au niveau :
-
-* middleware ;
-* Policies ;
-* requêtes ;
-* services ;
-* contrôleurs ;
-* tests.
-
-Ne jamais se fier uniquement à un `organization_id` fourni par le client.
-
----
-
-# 21. Sécurité
-
-Toute nouvelle fonctionnalité doit considérer :
-
-* authentification ;
-* autorisation ;
-* isolation tenant ;
-* validation des entrées ;
-* rate limiting ;
-* uploads ;
-* audit ;
-* protection des secrets ;
-* données personnelles ;
-* abus et spam.
-
----
-
-# 22. Tests
-
-Toute fonctionnalité métier majeure doit posséder des tests automatisés.
-
-Priorités :
+Architecture :
 
 ```text
-Feature tests
-Domain tests
-Authorization tests
-Tenant isolation tests
-Import tests
-Search tests
-API tests
+Telegram
+→ Bot
+→ Jaxaay API
+→ Domain Services
+→ PostgreSQL
 ```
 
-Un correctif de bug doit idéalement ajouter un test reproduisant le bug.
-
----
-
-# 23. Base de données
-
-Toute migration doit :
-
-* avoir un objectif métier documenté ;
-* préserver l'intégrité référentielle ;
-* créer les index nécessaires ;
-* éviter les colonnes redondantes ;
-* utiliser des contraintes PostgreSQL lorsque pertinent.
-
-Ne pas créer une migration exploratoire sur la branche principale.
-
----
-
-# 24. Performance
-
-Éviter notamment :
-
-* N+1 queries ;
-* chargement complet de grandes collections ;
-* filtres PHP lorsque PostgreSQL peut les faire ;
-* traitements lourds dans les requêtes HTTP ;
-* images originales inutilement lourdes.
-
-Utiliser lorsque pertinent :
+Interdiction absolue :
 
 ```text
-Indexes
-Caching
-Queues
-Pagination
-Cursor pagination
-Lazy loading
-Search engine
+Bot → PostgreSQL direct
 ```
 
 ---
 
-# 25. Git
+## 21. IA
+
+L'IA peut :
+
+- proposer une catégorie ;
+- proposer une profession ;
+- détecter un doublon ;
+- suggérer une relation ;
+- proposer une localisation ;
+- produire un résumé ;
+- classifier un document ;
+- signaler une incohérence.
+
+L'IA ne peut pas automatiquement :
+
+- valider un KYC ;
+- vérifier une identité ;
+- vérifier une profession réglementée ;
+- publier un profil sensible ;
+- fusionner deux personnalités ;
+- supprimer définitivement une fiche ;
+- modifier une taxonomie critique ;
+- modifier une localité canonique critique.
+
+---
+
+## 22. Marketplace
+
+La marketplace transactionnelle est hors périmètre V1.
+
+Ne pas créer sans décision explicite :
+
+- panier ;
+- commandes ;
+- stock ;
+- wallet ;
+- commissions ;
+- payouts ;
+- livraison ;
+- catalogue transactionnel.
+
+---
+
+## 23. Multi-tenant
+
+Toute ressource tenantée doit être isolée côté serveur.
+
+Le header :
+
+```text
+X-Organization-Id
+```
+
+sert uniquement à résoudre le contexte.
+
+Il ne constitue jamais une autorisation.
+
+Toute ressource concernée doit être protégée via :
+
+- middleware ;
+- Policies ;
+- services ;
+- requêtes tenant-scopées ;
+- tests automatisés.
+
+---
+
+## 24. Sécurité
+
+Exigences générales :
+
+- aucune donnée sensible dans Git ;
+- aucun `.env` committé ;
+- aucun token dans les logs ;
+- validation côté serveur ;
+- uploads contrôlés ;
+- rate limiting ;
+- audit des opérations sensibles ;
+- secrets chiffrés ou injectés par environnement ;
+- aucune donnée KYC dans le moteur de recherche ;
+- aucun accès direct PostgreSQL depuis un client.
+
+---
+
+## 25. Migrations
+
+Avant toute migration :
+
+1. lire `docs/architecture/database.md` ;
+2. vérifier l'existant ;
+3. confirmer le besoin ;
+4. vérifier les indexes ;
+5. définir les foreign keys ;
+6. analyser les contraintes ;
+7. éviter la duplication.
+
+Ne jamais créer une migration exploratoire si le modèle n'est pas validé.
+
+---
+
+## 26. Tests
+
+Toute fonctionnalité importante doit inclure les tests adaptés.
+
+Types :
+
+- unit ;
+- feature ;
+- integration ;
+- regression.
+
+Cas obligatoires selon domaine :
+
+- isolation tenant ;
+- autorisation ;
+- visibilité ;
+- contacts privés ;
+- quotas ;
+- entitlements ;
+- imports ;
+- recherche ;
+- idempotence ;
+- données sensibles.
+
+Une fonctionnalité n'est pas considérée terminée si elle n'est validée que manuellement.
+
+---
+
+## 27. Git
 
 Branches recommandées :
 
@@ -597,44 +741,91 @@ docs/*
 refactor/*
 ```
 
-`main` doit correspondre à une version stable.
+- `main` : stable / production ;
+- `develop` : intégration ;
+- branches dédiées pour les changements.
 
-Le développement courant se fait sur `develop` ou sur une branche dédiée.
+Ne pas effectuer de `force push` sur `main` ou `develop`.
 
 ---
 
-# 26. Commits
+## 28. Règles de commit
 
-Messages explicites et atomiques.
+Tous les messages de commit sont en français, à l'exception du préfixe Conventional Commit.
 
 Exemples :
 
 ```text
-feat(profile): add professional affiliations
-feat(search): add profile location facets
-fix(import): prevent duplicate reference creation
-docs(architecture): document location core
-test(profile): cover private contact visibility
+feat(profils): ajouter les affiliations professionnelles
+fix(recherche): corriger le filtrage par commune
+docs(architecture): documenter le moteur de relations
+test(tenant): ajouter les tests d'isolation des organisations
+refactor(api): simplifier la résolution du contexte organisation
+```
+
+Éviter :
+
+```text
+update stuff
+fix bug
+changes
+wip
+```
+
+Un commit doit représenter une modification cohérente.
+
+---
+
+## 29. Pull Requests
+
+Toute Pull Request doit être rédigée en français.
+
+Elle doit décrire :
+
+- contexte ;
+- objectif ;
+- solution ;
+- fichiers principaux ;
+- migrations ;
+- endpoints ;
+- sécurité ;
+- tests ;
+- documentation ;
+- risques ;
+- limitations.
+
+---
+
+## 30. CHANGELOG
+
+Le changelog contient uniquement les changements réellement intégrés.
+
+Ne pas inscrire sous `Added` une fonctionnalité seulement planifiée.
+
+Les fonctions futures restent dans :
+
+```text
+ROADMAP.md
 ```
 
 ---
 
-# 27. Pull Requests
+## 31. ADR
 
-Une PR importante doit préciser :
+Créer un ADR pour toute décision :
 
-* objectif ;
-* fichiers principaux ;
-* migrations ;
-* API ajoutée/modifiée ;
-* tests ;
-* impacts sécurité ;
-* impacts architecture ;
-* documentation mise à jour.
+- structurante ;
+- transversale ;
+- difficile à inverser ;
+- liée au modèle de données ;
+- liée à un composant majeur ;
+- liée à une technologie de recherche, stockage ou infrastructure.
+
+Les ADR sont rédigés en français.
 
 ---
 
-# 28. Documentation obligatoire
+## 32. Documentation
 
 Après une évolution majeure, vérifier :
 
@@ -644,89 +835,112 @@ ROADMAP.md
 CHANGELOG.md
 docs/architecture/
 docs/functional/
+docs/security/
+docs/development/
+docs/deployment/
 docs/decisions/
 ```
 
-Ne pas modifier ces fichiers artificiellement si aucun changement ne les concerne.
+Ne modifier que les documents concernés.
 
 ---
 
-# 29. CHANGELOG
+## 33. Workflow Codex obligatoire
 
-Le changelog décrit uniquement les changements réellement intégrés.
+Avant toute modification, Codex doit :
 
-Ne pas écrire une fonctionnalité dans `CHANGELOG.md` lorsqu'elle est seulement planifiée.
+1. lire les documents applicables ;
+2. vérifier la branche ;
+3. vérifier le HEAD ;
+4. vérifier le working tree ;
+5. inspecter les fichiers concernés ;
+6. lire les tests associés ;
+7. confirmer la cause ou le besoin ;
+8. appliquer une modification limitée ;
+9. exécuter les tests ;
+10. produire un rapport en français.
 
-Les fonctionnalités futures appartiennent à `ROADMAP.md`.
+Codex ne doit pas :
+
+- inventer l'état du dépôt ;
+- déclarer un test réussi sans l'avoir exécuté ;
+- modifier des domaines hors périmètre ;
+- faire du nettoyage opportuniste non demandé ;
+- ajouter une dépendance sans justification ;
+- stage ;
+- commit ;
+- push ;
+
+sauf demande explicite de l'utilisateur.
 
 ---
 
-# 30. ADR
+## 34. Rapport Codex
 
-Créer un ADR lorsqu'une décision :
+Tout rapport Codex est rédigé en français.
 
-* structure plusieurs domaines ;
-* est difficile à inverser ;
-* introduit une dépendance majeure ;
-* modifie le modèle de données ;
-* modifie une convention centrale.
-
-Format :
+Format recommandé :
 
 ```text
-Contexte
-Décision
-Alternatives
-Conséquences
-Statut
+Objectif
+Baseline
+Cause / constat
+Fichiers modifiés
+Décisions techniques
+Migrations
+Tests exécutés
+Résultats
+Sécurité
+Documentation mise à jour
+Risques / limites
+État Git final
+GO / NO-GO
+Prochaine étape
 ```
 
 ---
 
-# 31. Compatibilité future WaPASTEF
+## 35. Définition de Done
 
-Le moteur Jaxaay doit rester suffisamment générique pour permettre une future migration de l'annuaire AGPS/WaPASTEF.
-
-Cela ne signifie pas intégrer des règles politiques ou spécifiques à WaPASTEF dans le Core Jaxaay.
-
-Principe :
+Une fonctionnalité majeure est terminée lorsque :
 
 ```text
-Jaxaay Engine
-      ↓
-Directory Blueprint
-      ↓
-AGPS / autres projets
+Code
++ Tests
++ Sécurité
++ Documentation
++ Validation
 ```
 
----
+sont réalisés.
 
-# 32. Marketplace
-
-La marketplace n'est pas prioritaire pour V1.
-
-Ne pas introduire prématurément :
-
-* panier ;
-* commande ;
-* stock ;
-* wallet ;
-* commission ;
-* livraison.
-
-L'architecture doit seulement éviter de bloquer leur ajout futur.
+Un endpoint fonctionnel sans tests ni validation de sécurité n'est pas terminé.
 
 ---
 
-# 33. Règle finale
+## 36. Principe final
 
-Avant toute implémentation importante :
+Jaxaay Annuaire V2 doit privilégier :
 
-1. comprendre le besoin ;
-2. consulter l'architecture ;
-3. vérifier qu'un composant générique n'existe pas déjà ;
-4. définir les impacts ;
-5. coder ;
-6. tester ;
-7. documenter ;
-8. produire un rapport précis.
+```text
+simplicité
++ généricité maîtrisée
++ performance
++ sécurité
++ testabilité
++ traçabilité
++ documentation
+```
+
+et éviter :
+
+```text
+duplication
++ logique métier dans les contrôleurs
++ tables verticales inutiles
++ JSON opaque
++ contournement des Policies
++ dépendance forte aux fournisseurs externes
++ modifications non documentées
++ commits imprécis
+```
