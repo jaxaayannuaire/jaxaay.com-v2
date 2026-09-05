@@ -1,0 +1,8 @@
+# Copier ce fichier vers .github/CODEOWNERS après validation des comptes/équipes GitHub.
+# Exemple :
+#
+# * @jaxaayannuaire/<team-tech>
+# /docs/ @jaxaayannuaire/<team-docs>
+# /apps/api/ @jaxaayannuaire/<team-backend>
+# /apps/mobile/ @jaxaayannuaire/<team-mobile>
+# /.github/ @jaxaayannuaire/<team-tech>

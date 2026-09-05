@@ -1,0 +1,42 @@
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Laravel
+/apps/api/vendor/
+/apps/api/node_modules/
+/apps/api/storage/*.key
+/apps/api/storage/logs/*
+/apps/api/bootstrap/cache/*.php
+
+# Flutter
+/apps/mobile/.dart_tool/
+/apps/mobile/.flutter-plugins
+/apps/mobile/.flutter-plugins-dependencies
+/apps/mobile/build/
+/apps/mobile/.packages
+
+# Web
+/apps/web/node_modules/
+/apps/web/dist/
+/apps/web/build/
+
+# Test / coverage
+coverage/
+.phpunit.result.cache
+
+# Temporary imports / exports
+tmp/
+storage/imports/
+storage/exports/
+
+# Local infrastructure
+docker-compose.override.yml

@@ -1,0 +1,73 @@
+name: Feature request
+description: Proposer une évolution fonctionnelle ou technique
+title: "[Feature] "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problème à résoudre
+      description: Décrire le besoin avant de proposer la solution.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposition
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Horizon
+      options:
+        - V1
+        - V2
+        - V3 / Futur
+        - À étudier
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Domaine
+      options:
+        - Core SaaS
+        - Directory Engine
+        - Profils
+        - Entreprises / Organisations
+        - Annonces
+        - Documents / Archives
+        - Location Core
+        - Search
+        - DataExchange
+        - Claims / Verification
+        - Moderation
+        - SEO
+        - External Profiles
+        - Telegram / Notifications
+        - IA / Qualité des données
+        - Marketplace future
+        - Infrastructure
+        - Documentation
+        - Autre
+    validations:
+      required: true
+
+  - type: textarea
+    id: architecture
+    attributes:
+      label: Impact architecture
+      description: Indiquer si un ADR ou une évolution du modèle de données paraît nécessaire.
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Critères d'acceptation
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
